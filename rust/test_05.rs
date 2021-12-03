@@ -1,3 +1,5 @@
+// DESCRIPTION: unsigned char type
+
 fn main()
 {
   let mut v:u8 = 0;

@@ -1,3 +1,5 @@
+// DESCRIPTION: const with strings
+
 fn main() 
 {
   const UNAME:&str="Mohtashim";

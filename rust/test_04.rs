@@ -1,3 +1,5 @@
+// DESCRIPTION: unsigned char
+
 fn main()
 {
   let v0:u8 = 0;

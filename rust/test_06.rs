@@ -1,3 +1,5 @@
+// DESCRIPTION: string len
+
 fn main() 
 {
   let uname = "Mohtashim";

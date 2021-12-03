@@ -1,3 +1,5 @@
+// DESCRIPTION: iterate through string.split
+
 fn main()
 {
   let fullname = " Tutorials Point is great ";

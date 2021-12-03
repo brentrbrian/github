@@ -1,3 +1,5 @@
+// DESCRIPTION: string new, len, from
+
 fn main()
 {
   let empty_string = String::new();

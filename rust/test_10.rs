@@ -1,3 +1,5 @@
+// DESCRIPTION: string new push_str push(char)
+
 fn main()
 {
   let mut z = String::new();

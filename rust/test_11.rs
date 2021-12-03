@@ -1,3 +1,5 @@
+// DESCRIPTION: string to_string & replace
+
 fn main()
 {
   let mut name1 = "Hello TutorialsPoint, Hello!".to_string();
