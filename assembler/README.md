@@ -1,2 +1,2 @@
-# assembler files
+# assembler files:
 # x86_64
