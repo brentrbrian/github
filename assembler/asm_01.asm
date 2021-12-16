@@ -1,38 +1,17 @@
-; ------------------------------------------------------
-; Command Line Arguments Example
-; 
-; read command line arguments and print them
 ;
-; ------------------------------------------------------
+; print argv[0]
+;
+
+%include "syscalls.inc"
 
 section       .data
-
-LF            equ  10
-NULL          equ  0
-TRUE          equ  1
-FALSE         equ  0
-
-EXIT_SUCCESS  equ  0 
-
-STDIN         equ  0
-STDOUT        equ  1
-STDERR        equ  2
-
-SYS_read      equ  0
-SYS_write     equ  1
-SYS_open      equ  2
-SYS_close     equ  3
-SYS_fork      equ  57
-SYS_exit      equ  60
-SYS_creat     equ  85
-SYS_time      equ  201
 
 newLine       db   LF,NULL
 
 section       .text
 
 global        main
-global        printString
+global        PRINT_STRING
 
 main:
 
@@ -42,27 +21,31 @@ main:
 printArguments:
 
   mov   rdi,newLine
-  call  printString
+  call  PRINT_STRING
   
   mov   rbx,0
 
 printLoop:
 
   mov   rdi,qword [r13+rbx*8]
-  call  printString
+  call  PRINT_STRING
   mov   rdi,newLine
-  call  printString
+  call  PRINT_STRING
   inc   rbx
   cmp   rbx,r12
   jl    printLoop
 
-exampleDone:
+exit:
 
   mov   rax,SYS_exit
   mov   rdi,EXIT_SUCCESS
   syscall
+  
+;
+; FUNCTIONS
+;
 
-printString:
+PRINT_STRING:
 
   push  rbp
   mov   rbp,rsp
