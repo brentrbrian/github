@@ -1,5 +1,5 @@
 ;
-; asm_05.asm
+; asm_06.asm
 ;
 ; x86-64 Assembly
 ; Ubuntu Linux
@@ -11,17 +11,14 @@
 
       bMask       db      0x0f
       bAscii      db      0x30
-      bNum        db      0
 
       dNum        dd      0x12345678
 
-      result      dw      '0x'
-      hexq        dq      0
-                  db      LF
-      resLen      equ     $-result
+      result      db      0x20,0x20
+                  db      0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+                  db      0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+      resEnd      db      LF
 
-      msg:        db      '0x'
-      msglen:     equ     $-msg
 
       section     .text
 
@@ -31,14 +28,15 @@ main:
 
       mov       r8d, dword [dNum]
       mov       r10, 8
+      mov       r11, resEnd-1
 
 shift_loop:
-
-      shl       r9, 8
 
       mov       r9b, r8b
       and       r9b, byte [bMask]
       or        r9b, byte [bAscii]
+      mov       byte [r11], r9b
+      dec       r11
 
       ror       r8d, 4
 
@@ -46,15 +44,18 @@ shift_loop:
       cmp       r10, 0
       jne       shift_loop
 
-      mov       qword [hexq], r9
-
+      mov       byte [r11], 'x'
+      dec       r11
+      mov       byte [r11], '0'
 
       mov       rax, SYS_write
       mov       rdi, STDOUT
-      mov       rsi, result
-      mov       rdx, resLen
+      mov       rsi, r11
+      mov       rdx, resEnd+1
+      sub       rdx, r11
       syscall
 
       mov       rax, SYS_exit
       mov       rdi, EXIT_SUCCESS
       syscall
+
