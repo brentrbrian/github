@@ -6,23 +6,24 @@
 ;
 
       %include    "syscalls.inc"
+      %include    "macros.inc"
 
       section     .data
 
       bMask       db      0x0f
-      bAsciiDig   db      0x30
-      bAsciiAlp   db      0x40
+      
+      bHex        db      0
+      
+      bAsciiHex   db      '0','1','2','3','4','5','6','7'
+                  db      '8','9','a','b','c','d','e','f'      
 
       dNum        dd      0x2468acef
 
-      result      db      0x20,0x20
-                  db      0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
-                  db      0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
-      resEnd      db      LF
-
-      bAsciiHex   db      '0','1','2','3','4','5','6','7'
-                  db      '8','9','a','b','c','d','e','f'
-
+      result      db      0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+                  db      0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+                  db      '|',LF,LF
+      resEnd
+      
       section     .text
 
       global      main
@@ -36,7 +37,7 @@ main:
       mov       r10, 8
       
       ; start at the end of the string and work backwards
-      mov       r11, resEnd-1
+      mov       r11, resEnd-3
 
 hex_loop:
 
@@ -44,8 +45,8 @@ hex_loop:
       mov       r9, 0
       mov       r9b, r8b
       and       r9b, byte [bMask]
-      add       r9, bAsciiHex
-      mov       r9b, byte[r9]
+      add       r9,  bAsciiHex
+      mov       r9b, byte [r9]
       mov       byte [r11], r9b
 
       ; decrement the pointer
@@ -58,18 +59,18 @@ hex_loop:
       cmp       r10, 0
       jne       hex_loop
 
-      ; add the 0x to the front end
+      ; add the LF 0x
       mov       byte [r11], 'x'
       dec       r11
       mov       byte [r11], '0'
-
-      ; write the string to STDOUT
-      mov       rax, SYS_write
-      mov       rdi, STDOUT
-      mov       rsi, r11
-      mov       rdx, resEnd+1
+      dec       r11
+      mov       byte [r11], LF
+      dec       r11
+      
+      mov       rdx, resEnd-1
       sub       rdx, r11
-      syscall
+      
+      PRINT     r11, rdx
 
       mov       rax, SYS_exit
       mov       rdi, EXIT_SUCCESS
