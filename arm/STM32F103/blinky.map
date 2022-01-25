@@ -1,0 +1,266 @@
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 startup_gcc.o
+ .data          0x0000000000000000        0x0 startup_gcc.o
+ .text          0x0000000000000000        0x0 blinky.o
+ .data          0x0000000000000000        0x0 blinky.o
+ .text          0x0000000000000000        0x0 stm/stm32f10x_gpio.o
+ .data          0x0000000000000000        0x0 stm/stm32f10x_gpio.o
+ .bss           0x0000000000000000        0x0 stm/stm32f10x_gpio.o
+ .text.GPIO_DeInit
+                0x0000000000000000       0xb8 stm/stm32f10x_gpio.o
+ .text.GPIO_AFIODeInit
+                0x0000000000000000       0x18 stm/stm32f10x_gpio.o
+ .text.GPIO_StructInit
+                0x0000000000000000       0x26 stm/stm32f10x_gpio.o
+ .text.GPIO_ReadInputDataBit
+                0x0000000000000000       0x32 stm/stm32f10x_gpio.o
+ .text.GPIO_ReadInputData
+                0x0000000000000000       0x18 stm/stm32f10x_gpio.o
+ .text.GPIO_ReadOutputDataBit
+                0x0000000000000000       0x32 stm/stm32f10x_gpio.o
+ .text.GPIO_ReadOutputData
+                0x0000000000000000       0x18 stm/stm32f10x_gpio.o
+ .text.GPIO_Write
+                0x0000000000000000       0x1c stm/stm32f10x_gpio.o
+ .text.GPIO_PinLockConfig
+                0x0000000000000000       0x42 stm/stm32f10x_gpio.o
+ .text.GPIO_EventOutputConfig
+                0x0000000000000000       0x4c stm/stm32f10x_gpio.o
+ .text.GPIO_EventOutputCmd
+                0x0000000000000000       0x20 stm/stm32f10x_gpio.o
+ .text.GPIO_PinRemapConfig
+                0x0000000000000000       0xa8 stm/stm32f10x_gpio.o
+ .text.GPIO_EXTILineConfig
+                0x0000000000000000       0x80 stm/stm32f10x_gpio.o
+ .text          0x0000000000000000        0x0 stm/stm32f10x_rcc.o
+ .data          0x0000000000000000        0x0 stm/stm32f10x_rcc.o
+ .bss           0x0000000000000000        0x0 stm/stm32f10x_rcc.o
+ .rodata        0x0000000000000000       0x14 stm/stm32f10x_rcc.o
+ .text.RCC_DeInit
+                0x0000000000000000       0x78 stm/stm32f10x_rcc.o
+ .text.RCC_AdjustHSICalibrationValue
+                0x0000000000000000       0x3c stm/stm32f10x_rcc.o
+ .text.RCC_GetSYSCLKSource
+                0x0000000000000000       0x1c stm/stm32f10x_rcc.o
+ .text.RCC_ITConfig
+                0x0000000000000000       0x4c stm/stm32f10x_rcc.o
+ .text.RCC_LSEConfig
+                0x0000000000000000       0x40 stm/stm32f10x_rcc.o
+ .text.RCC_LSICmd
+                0x0000000000000000       0x20 stm/stm32f10x_rcc.o
+ .text.RCC_RTCCLKConfig
+                0x0000000000000000       0x24 stm/stm32f10x_rcc.o
+ .text.RCC_RTCCLKCmd
+                0x0000000000000000       0x20 stm/stm32f10x_rcc.o
+ .text.RCC_GetClocksFreq
+                0x0000000000000000      0x160 stm/stm32f10x_rcc.o
+ .text.RCC_AHBPeriphClockCmd
+                0x0000000000000000       0x3c stm/stm32f10x_rcc.o
+ .text.RCC_APB1PeriphClockCmd
+                0x0000000000000000       0x3c stm/stm32f10x_rcc.o
+ .text.RCC_APB2PeriphResetCmd
+                0x0000000000000000       0x3c stm/stm32f10x_rcc.o
+ .text.RCC_APB1PeriphResetCmd
+                0x0000000000000000       0x3c stm/stm32f10x_rcc.o
+ .text.RCC_BackupResetCmd
+                0x0000000000000000       0x20 stm/stm32f10x_rcc.o
+ .text.RCC_ClockSecuritySystemCmd
+                0x0000000000000000       0x20 stm/stm32f10x_rcc.o
+ .text.RCC_MCOConfig
+                0x0000000000000000       0x20 stm/stm32f10x_rcc.o
+ .text.RCC_ClearFlag
+                0x0000000000000000       0x1c stm/stm32f10x_rcc.o
+ .text.RCC_GetITStatus
+                0x0000000000000000       0x34 stm/stm32f10x_rcc.o
+ .text.RCC_ClearITPendingBit
+                0x0000000000000000       0x20 stm/stm32f10x_rcc.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000008000000 0x0000000000020000 xr
+SRAM             0x0000000020000000 0x0000000000005000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD startup_gcc.o
+LOAD blinky.o
+LOAD stm/stm32f10x_gpio.o
+LOAD stm/stm32f10x_rcc.o
+
+.text           0x0000000008000000      0x704
+                0x0000000008000000                _text = .
+ *(.isr_vector)
+ .isr_vector    0x0000000008000000       0xec startup_gcc.o
+                0x0000000008000000                g_pfnVectors
+ *(.text*)
+ .text.ResetISR
+                0x00000000080000ec       0x5c startup_gcc.o
+                0x00000000080000ec                ResetISR
+ .text.NmiISR   0x0000000008000148        0x6 startup_gcc.o
+ .text.FaultISR
+                0x000000000800014e        0x6 startup_gcc.o
+ .text.IntDefaultHandler
+                0x0000000008000154        0x6 startup_gcc.o
+ *fill*         0x000000000800015a        0x2 
+ .text.Clk_Init
+                0x000000000800015c       0x8c blinky.o
+                0x000000000800015c                Clk_Init
+ .text.myDelay  0x00000000080001e8       0x34 blinky.o
+                0x00000000080001e8                myDelay
+ .text.main     0x000000000800021c       0x84 blinky.o
+                0x000000000800021c                main
+ .text.GPIO_Init
+                0x00000000080002a0      0x17a stm/stm32f10x_gpio.o
+                0x00000000080002a0                GPIO_Init
+ .text.GPIO_WriteBit
+                0x000000000800041a       0x2e stm/stm32f10x_gpio.o
+                0x000000000800041a                GPIO_WriteBit
+ .text.RCC_HSEConfig
+                0x0000000008000448       0x5c stm/stm32f10x_rcc.o
+                0x0000000008000448                RCC_HSEConfig
+ .text.RCC_HSICmd
+                0x00000000080004a4       0x20 stm/stm32f10x_rcc.o
+                0x00000000080004a4                RCC_HSICmd
+ .text.RCC_PLLConfig
+                0x00000000080004c4       0x3c stm/stm32f10x_rcc.o
+                0x00000000080004c4                RCC_PLLConfig
+ .text.RCC_PLLCmd
+                0x0000000008000500       0x20 stm/stm32f10x_rcc.o
+                0x0000000008000500                RCC_PLLCmd
+ .text.RCC_SYSCLKConfig
+                0x0000000008000520       0x38 stm/stm32f10x_rcc.o
+                0x0000000008000520                RCC_SYSCLKConfig
+ .text.RCC_HCLKConfig
+                0x0000000008000558       0x38 stm/stm32f10x_rcc.o
+                0x0000000008000558                RCC_HCLKConfig
+ .text.RCC_PCLK1Config
+                0x0000000008000590       0x38 stm/stm32f10x_rcc.o
+                0x0000000008000590                RCC_PCLK1Config
+ .text.RCC_PCLK2Config
+                0x00000000080005c8       0x38 stm/stm32f10x_rcc.o
+                0x00000000080005c8                RCC_PCLK2Config
+ .text.RCC_USBCLKConfig
+                0x0000000008000600       0x1c stm/stm32f10x_rcc.o
+                0x0000000008000600                RCC_USBCLKConfig
+ .text.RCC_ADCCLKConfig
+                0x000000000800061c       0x38 stm/stm32f10x_rcc.o
+                0x000000000800061c                RCC_ADCCLKConfig
+ .text.RCC_APB2PeriphClockCmd
+                0x0000000008000654       0x3c stm/stm32f10x_rcc.o
+                0x0000000008000654                RCC_APB2PeriphClockCmd
+ .text.RCC_GetFlagStatus
+                0x0000000008000690       0x74 stm/stm32f10x_rcc.o
+                0x0000000008000690                RCC_GetFlagStatus
+ *(.rodata*)
+                0x0000000008000704                _etext = .
+
+.glue_7         0x0000000008000704        0x0
+ .glue_7        0x0000000008000704        0x0 linker stubs
+
+.glue_7t        0x0000000008000704        0x0
+ .glue_7t       0x0000000008000704        0x0 linker stubs
+
+.vfp11_veneer   0x0000000008000704        0x0
+ .vfp11_veneer  0x0000000008000704        0x0 linker stubs
+
+.v4_bx          0x0000000008000704        0x0
+ .v4_bx         0x0000000008000704        0x0 linker stubs
+
+.iplt           0x0000000008000704        0x0
+ .iplt          0x0000000008000704        0x0 startup_gcc.o
+
+.rel.dyn        0x0000000008000704        0x0
+ .rel.iplt      0x0000000008000704        0x0 startup_gcc.o
+
+.data           0x0000000020000000        0x0 load address 0x0000000008000704
+                0x0000000020000000                _data = .
+ *(vtable)
+ *(.data*)
+                0x0000000020000000                _edata = .
+
+.igot.plt       0x0000000020000000        0x0
+ .igot.plt      0x0000000020000000        0x0 startup_gcc.o
+
+.bss            0x0000000020000000      0x108
+                0x0000000020000000                _bss = .
+ *(.bss*)
+ .bss           0x0000000020000000      0x100 startup_gcc.o
+ .bss           0x0000000020000100        0x8 blinky.o
+                0x0000000020000100                GPIO_InitStructure
+                0x0000000020000104                delay
+ *(COMMON)
+                0x0000000020000108                _ebss = .
+OUTPUT(blinky.elf elf32-littlearm)
+LOAD linker stubs
+
+.debug_info     0x0000000000000000     0x11fd
+ .debug_info    0x0000000000000000      0x11e startup_gcc.o
+ .debug_info    0x000000000000011e      0x27b blinky.o
+ .debug_info    0x0000000000000399      0x62a stm/stm32f10x_gpio.o
+ .debug_info    0x00000000000009c3      0x83a stm/stm32f10x_rcc.o
+
+.debug_abbrev   0x0000000000000000      0x53f
+ .debug_abbrev  0x0000000000000000       0xb3 startup_gcc.o
+ .debug_abbrev  0x00000000000000b3      0x11b blinky.o
+ .debug_abbrev  0x00000000000001ce      0x1ba stm/stm32f10x_gpio.o
+ .debug_abbrev  0x0000000000000388      0x1b7 stm/stm32f10x_rcc.o
+
+.debug_aranges  0x0000000000000000      0x208
+ .debug_aranges
+                0x0000000000000000       0x38 startup_gcc.o
+ .debug_aranges
+                0x0000000000000038       0x30 blinky.o
+ .debug_aranges
+                0x0000000000000068       0x90 stm/stm32f10x_gpio.o
+ .debug_aranges
+                0x00000000000000f8      0x110 stm/stm32f10x_rcc.o
+
+.debug_ranges   0x0000000000000000      0x1c8
+ .debug_ranges  0x0000000000000000       0x28 startup_gcc.o
+ .debug_ranges  0x0000000000000028       0x20 blinky.o
+ .debug_ranges  0x0000000000000048       0x80 stm/stm32f10x_gpio.o
+ .debug_ranges  0x00000000000000c8      0x100 stm/stm32f10x_rcc.o
+
+.debug_line     0x0000000000000000      0xb3f
+ .debug_line    0x0000000000000000       0xae startup_gcc.o
+ .debug_line    0x00000000000000ae      0x140 blinky.o
+ .debug_line    0x00000000000001ee      0x3a6 stm/stm32f10x_gpio.o
+ .debug_line    0x0000000000000594      0x5ab stm/stm32f10x_rcc.o
+
+.debug_str      0x0000000000000000      0x906
+ .debug_str     0x0000000000000000      0x14d startup_gcc.o
+                                        0x15a (size before relaxing)
+ .debug_str     0x000000000000014d      0x1af blinky.o
+                                        0x2a9 (size before relaxing)
+ .debug_str     0x00000000000002fc      0x228 stm/stm32f10x_gpio.o
+                                        0x45d (size before relaxing)
+ .debug_str     0x0000000000000524      0x3e2 stm/stm32f10x_rcc.o
+                                        0x57a (size before relaxing)
+
+.comment        0x0000000000000000       0x49
+ .comment       0x0000000000000000       0x49 startup_gcc.o
+                                         0x4a (size before relaxing)
+ .comment       0x0000000000000049       0x4a blinky.o
+ .comment       0x0000000000000049       0x4a stm/stm32f10x_gpio.o
+ .comment       0x0000000000000049       0x4a stm/stm32f10x_rcc.o
+
+.ARM.attributes
+                0x0000000000000000       0x2d
+ .ARM.attributes
+                0x0000000000000000       0x2d startup_gcc.o
+ .ARM.attributes
+                0x000000000000002d       0x2d blinky.o
+ .ARM.attributes
+                0x000000000000005a       0x2d stm/stm32f10x_gpio.o
+ .ARM.attributes
+                0x0000000000000087       0x2d stm/stm32f10x_rcc.o
+
+.debug_frame    0x0000000000000000      0x814
+ .debug_frame   0x0000000000000000       0x7c startup_gcc.o
+ .debug_frame   0x000000000000007c       0x70 blinky.o
+ .debug_frame   0x00000000000000ec      0x258 stm/stm32f10x_gpio.o
+ .debug_frame   0x0000000000000344      0x4d0 stm/stm32f10x_rcc.o

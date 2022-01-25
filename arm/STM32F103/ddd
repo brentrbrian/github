@@ -1,0 +1,4 @@
+BIN=`cat arm_path`
+PRJ=`pwd`
+
+ddd --debugger $BIN/arm-none-eabi-gdb --command=$PRJ/gdb.cfg $PRJ/blinky.elf
