@@ -1,5 +1,5 @@
 ;
-; asm_02.asm - add instruction
+; asm_02.asm
 ;
 ; x86-64 Assembly Language Programming with Ubuntu 
 ;

@@ -1,5 +1,5 @@
 ;
-; asm_01.asm - access command (argc,argv) and print argv[0] (program name)
+; asm_01.asm
 ;
 ; x86-64 Assembly Language Programming with Ubuntu 
 ;
@@ -21,8 +21,6 @@
 
 main:
 
-      ; preserve rdi (argc) & rsi (argv[])
-      
       mov       r12, rdi
       mov       r13, rsi
 
@@ -35,8 +33,6 @@ printArguments:
 
 printLoop:
 
-      ; loop through argv[], and increment in index
-      
       mov       rdi, qword [r13+rbx*8]
       call      PRINT_STRING
       mov       rdi, newLine
@@ -50,10 +46,6 @@ exit:
       mov       rax, SYS_exit
       mov       rdi, EXIT_SUCCESS
       syscall
-      
-;
-; print a null terminated string
-;
 
 PRINT_STRING:
 
