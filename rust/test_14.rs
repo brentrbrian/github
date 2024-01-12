@@ -1,7 +1,6 @@
 // DESCRIPTION: asm! example
 
-#![feature(asm)]
-#[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
+use std::arch::asm;
 
 fn main() 
 {
@@ -16,5 +15,3 @@ fn main()
   
   println!("value of x = {}",x);
 }
-
-
