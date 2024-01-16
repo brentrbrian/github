@@ -1,0 +1,171 @@
+#!/bin/python3
+
+import os, sys, glob
+sys.path.append(os.path.join('classes'))
+import _classWxFrames
+
+CR    = [0x0D,0x00]
+LF    = [0x0A,0x00]
+TAB   = [0x09,0x00]
+NULL  = [0x00,0x00]
+SPACE = [0x20,0x00]
+SKIP  = True
+KEEP  = False
+
+class cleanFile():
+  
+  dictSTATUS = None
+  listBYTES = None
+  RECORD = 0
+  EOF = False
+  
+  def __init__(self):
+    pass
+      
+  def __del__(self):
+    pass
+  
+  def skip(self):
+    
+    # characters 
+    
+    if self.listBYTES == LF:
+      self.dictSTATUS['LF'] = True
+      return KEEP
+    
+    if self.listBYTES == TAB:
+      return KEEP
+    
+    if self.listBYTES == NULL:
+      return SKIP
+
+    if self.listBYTES == CR:
+      self.dictSTATUS['CR'] = True
+      return SKIP 
+      
+    if self.listBYTES[1] > 0x00 or self.listBYTES[0] < 0x20:
+      if not self.dictSTATUS['JUNK']:
+        self.dictSTATUS['JUNK'] = []
+      strHEX = '%02X%02X' % (self.listBYTES[0],self.listBYTES[1])
+      if not strHEX in self.dictSTATUS['JUNK']:
+        self.dictSTATUS['JUNK'].append(strHEX)
+      return KEEP
+    
+    return KEEP
+  
+  
+  def getRecord(self):
+    
+    self.dictSTATUS = { 'CR' : False, 'LF' : False, 'JUNK' : None, 'SKIP' : False }
+    
+    listOUT = []
+    
+    while not (self.dictSTATUS['CR'] and self.dictSTATUS['LF']):
+    
+      try:
+        b = self.fi.read(2)
+      except:
+        self.EOF = True
+        break
+      
+      self.listBYTES = list(b)
+      
+      if len(self.listBYTES) < 2:
+        self.EOF = True
+        break
+      
+      if self.skip():
+        continue
+      
+      listOUT.append(chr(self.listBYTES[0]))
+        
+    self.strOUT = ''.join(listOUT)
+    
+    self.RECORD += 1
+    
+    return
+
+    
+  def main(self):
+  
+    f = _classWxFrames.classWxFrames() 
+    
+    listVR = glob.glob('../../data/VR*.txt')
+    
+    if len(listVR) == 0:
+      print('No VR text files found files found')
+      return False
+  
+    for strVR in listVR:
+      if '_clean' in strVR:
+        listVR.remove(strVR)
+    
+    listVR.sort()
+    
+    (strVR,strButton) = f.TwoButtonsAndOneDropdownDialog(strTitle='Registration Snapshots',strLeft='OK',strRight='CANCEL',listItems=listVR[0:])
+    
+    if strButton in ['CLOSE','CANCEL']:
+      print('%s selected by operator' % (strButton))
+      return False
+       
+    self.FILE  = strVR
+    EXT   = '.' + self.FILE.split('.')[-1]
+    
+    self.FILE_BASE = self.FILE.replace(EXT,'')
+    self.FILE_IN   = self.FILE
+    self.FILE_OUT  = self.FILE_BASE + '_char' + EXT
+    self.FILE_ERR  = self.FILE_BASE + '_error' + EXT
+    
+    print('file in:  %s' % (self.FILE_IN))
+    print('file out: %s' % (self.FILE_OUT))
+    
+    self.fi = open(self.FILE_IN,'br')
+    self.fo = open(self.FILE_OUT,'w')
+    self.fe = open(self.FILE_ERR,'w')
+  
+    # get magic cookie
+    MC = self.fi.read(2)
+    
+    # check magic cookie
+    if MC != bytes([0xff,0xfe]):
+      return False
+    
+    #
+    # convert bytes into characters
+    #
+    
+    while not self.EOF:
+      
+      self.getRecord()
+      
+      if self.dictSTATUS['JUNK']:
+        self.fe.write('%10d [%s] %s\n' % (self.RECORD,','.join(self.dictSTATUS['JUNK']),self.strOUT))
+
+      self.fo.write(self.strOUT)
+        
+    self.fi.close()
+    self.fo.close()
+    self.fe.close()
+  
+    print("***********************")
+    print("* FINISHED            *")
+    print("***********************")
+  
+    
+    print("listCRAP()")
+    print("-----+------")
+    for k in self.dictJUNK.keys():
+      print("%4d | %s" % (self.dictJUNK[k]['count'],k))
+      
+    return True
+  
+############################
+#
+#
+#
+############################
+if __name__ == '__main__':
+  
+  cf = cleanFile()
+  
+  ret = cf.main()
