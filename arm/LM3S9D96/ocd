@@ -1,0 +1,6 @@
+TARGET=/usr/share/openocd/scripts/target
+INTERFACE=/usr/share/openocd/scripts/interface
+BOARD=/usr/share/openocd/scripts/board
+PWD=`pwd`
+
+sudo openocd -f $PWD/openocd.cfg -f $INTERFACE/ftdi/olimex-arm-usb-tiny-h.cfg -f $BOARD/ek-lm3s9b9x.cfg

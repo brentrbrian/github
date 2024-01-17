@@ -1,0 +1,5 @@
+BIN=`cat arm_path`
+PRJ=`pwd`
+
+$BIN/arm-none-eabi-gdbtui --eval-command="target remote localhost:3333" $PRJ/blinky.elf
+

@@ -1,0 +1,121 @@
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 blinky.o
+ .data          0x0000000000000000        0x0 blinky.o
+ .bss           0x0000000000000000        0x0 blinky.o
+ .text          0x0000000000000000        0x0 startup_gcc.o
+ .data          0x0000000000000000        0x0 startup_gcc.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000000000000 0x0000000000040000 xr
+SRAM             0x0000000020000000 0x0000000000018000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD blinky.o
+LOAD startup_gcc.o
+
+.text           0x0000000000000000      0x206
+                0x0000000000000000                _text = .
+ *(.isr_vector)
+ .isr_vector    0x0000000000000000      0x11c startup_gcc.o
+                0x0000000000000000                g_pfnVectors
+ *(.text*)
+ .text.delay    0x000000000000011c       0x22 blinky.o
+                0x000000000000011c                delay
+ *fill*         0x000000000000013e        0x2 
+ .text.main     0x0000000000000140       0x58 blinky.o
+                0x0000000000000140                main
+ .text.ResetISR
+                0x0000000000000198       0x5c startup_gcc.o
+                0x0000000000000198                ResetISR
+ .text.NmiSR    0x00000000000001f4        0x6 startup_gcc.o
+ .text.FaultISR
+                0x00000000000001fa        0x6 startup_gcc.o
+ .text.IntDefaultHandler
+                0x0000000000000200        0x6 startup_gcc.o
+ *(.rodata*)
+                0x0000000000000206                _etext = .
+
+.glue_7         0x0000000000000208        0x0
+ .glue_7        0x0000000000000208        0x0 linker stubs
+
+.glue_7t        0x0000000000000208        0x0
+ .glue_7t       0x0000000000000208        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000000208        0x0
+ .vfp11_veneer  0x0000000000000208        0x0 linker stubs
+
+.v4_bx          0x0000000000000208        0x0
+ .v4_bx         0x0000000000000208        0x0 linker stubs
+
+.iplt           0x0000000000000208        0x0
+ .iplt          0x0000000000000208        0x0 blinky.o
+
+.rel.dyn        0x0000000000000208        0x0
+ .rel.iplt      0x0000000000000208        0x0 blinky.o
+
+.data           0x0000000020000000        0x0 load address 0x0000000000000206
+                0x0000000020000000                _data = .
+ *(vtable)
+ *(.data*)
+                0x0000000020000000                _edata = .
+
+.igot.plt       0x0000000020000000        0x0
+ .igot.plt      0x0000000020000000        0x0 blinky.o
+
+.bss            0x0000000020000000      0x100
+                0x0000000020000000                _bss = .
+ *(.bss*)
+ .bss           0x0000000020000000      0x100 startup_gcc.o
+ *(COMMON)
+                0x0000000020000100                _ebss = .
+OUTPUT(blinky.elf elf32-littlearm)
+LOAD linker stubs
+
+.debug_info     0x0000000000000000      0x18c
+ .debug_info    0x0000000000000000       0x6e blinky.o
+ .debug_info    0x000000000000006e      0x11e startup_gcc.o
+
+.debug_abbrev   0x0000000000000000      0x126
+ .debug_abbrev  0x0000000000000000       0x73 blinky.o
+ .debug_abbrev  0x0000000000000073       0xb3 startup_gcc.o
+
+.debug_aranges  0x0000000000000000       0x60
+ .debug_aranges
+                0x0000000000000000       0x28 blinky.o
+ .debug_aranges
+                0x0000000000000028       0x38 startup_gcc.o
+
+.debug_ranges   0x0000000000000000       0x40
+ .debug_ranges  0x0000000000000000       0x18 blinky.o
+ .debug_ranges  0x0000000000000018       0x28 startup_gcc.o
+
+.debug_line     0x0000000000000000      0x136
+ .debug_line    0x0000000000000000       0x94 blinky.o
+ .debug_line    0x0000000000000094       0xa2 startup_gcc.o
+
+.debug_str      0x0000000000000000      0x15f
+ .debug_str     0x0000000000000000       0xee blinky.o
+ .debug_str     0x00000000000000ee       0x71 startup_gcc.o
+                                        0x158 (size before relaxing)
+
+.comment        0x0000000000000000       0x49
+ .comment       0x0000000000000000       0x49 blinky.o
+                                         0x4a (size before relaxing)
+ .comment       0x0000000000000049       0x4a startup_gcc.o
+
+.ARM.attributes
+                0x0000000000000000       0x2d
+ .ARM.attributes
+                0x0000000000000000       0x2d blinky.o
+ .ARM.attributes
+                0x000000000000002d       0x2d startup_gcc.o
+
+.debug_frame    0x0000000000000000       0xd0
+ .debug_frame   0x0000000000000000       0x54 blinky.o
+ .debug_frame   0x0000000000000054       0x7c startup_gcc.o
